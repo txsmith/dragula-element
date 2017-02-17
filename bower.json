@@ -1,8 +1,18 @@
 {
   "name": "dragula-element",
   "version": "0.1.0",
+  "description": "Make any element draggable",
+  "authors": [
+    "Thomas Smith"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/txsmith/dragula-element.git"
+  },
   "homepage": "https://github.com/txsmith/dragula-element",
+  "main": "dragula-element.html",
   "license": "MIT",
+  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -11,7 +21,24 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.0.0",
+    "polymer": "^1.8.0",
     "dragula.js": "txsmith/dragula#fix-shadow-dom-dist"
-  }
+  },
+  "devDependencies": {
+    "iron-component-page": "^1.1.8",
+    "iron-demo-helpers": "^1.2.5",
+    "iron-test-helpers": "^1.4.0",
+    "web-component-tester": "^5.0.0",
+    "webcomponentsjs": "^0.7.24",
+    "paper-material": "^1.0.6",
+    "test-fixture": "^1.0.0"
+  },
+  "keywords": [
+    "web-components",
+    "web-component",
+    "polymer",
+    "dragula",
+    "draggable",
+    "drag"
+  ]
 }

@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+  <title>dragula-element demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script>
+    window.Polymer = window.Polymer || {};
+    window.Polymer.dom = 'shadow';
+  </script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../dragula-element.html">
+  <link rel="import" href="../dragula-styles.html">
+  <link rel="import" href="my-group.html">
+
+  <style is="custom-style" include="demo-pages-shared-styles">
+  </style>
+
+</head>
+<body>
+  <div class="vertical-section-container centered">
+    
+    <h3>Nested elements, without dragging between groups</h3>
+    <demo-snippet class="centered-demo">
+      <template>
+        <style is="custom-style" include="dragula-styles">
+        </style>
+
+        <dragula-element handle-class="handle">
+          <my-group></my-group>
+          <my-group></my-group>
+          <my-group></my-group>
+        </dragula-element>
+
+        <style include="dragula-styles">
+          my-group {
+            box-sizing: border-box;
+            margin: 1em;
+            border: dashed 1px black;
+          }
+        </style>
+      </template>
+    </demo-snippet>
+  </div>
+</body>
+</html>

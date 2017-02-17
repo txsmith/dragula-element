@@ -1,0 +1,9 @@
+{
+  "name": "dragula-element",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.html",
+  "repository": "https://github.com/txsmith/dragula-element.git",
+  "author": "Thomas Smith <tnsmith@live.nl>",
+  "license": "MIT"
+}

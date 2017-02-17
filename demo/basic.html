@@ -1,0 +1,56 @@
+
+<!doctype html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+  <title>dragula-element demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script>
+    window.Polymer = window.Polymer || {};
+    window.Polymer.dom = 'shadow';
+  </script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../dragula-element.html">
+  <link rel="import" href="../dragula-styles.html">
+  <link rel="import" href="my-group.html">
+
+  <style is="custom-style" include="demo-pages-shared-styles">
+  </style>
+</head>
+<body>
+  <div class="vertical-section-container centered">
+    
+    <h3>Simple flat element heirarchy</h3>
+    <demo-snippet class="centered-demo">
+      <template>
+        <style is="custom-style" include="dragula-styles">
+        </style>
+
+        <dragula-element>
+          <div class="item">Hello</div>
+          <div class="item">Draggable</div>
+          <div class="item">World</div>
+          <div class="item">Demo</div>
+        </dragula-element>
+
+        <style include="dragula-styles">
+          .item {
+            background: white;
+            border: solid 1px black;
+            margin: 1em;
+            padding: 0.5em;
+            box-sizing: border-box;
+          }
+        </style>
+      </template>
+    </demo-snippet>
+  </div>
+</body>
+</html>

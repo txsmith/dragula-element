@@ -1,16 +1,33 @@
 <!doctype html>
 <html>
-  <head>
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script>
-      /*
-      window.Polymer = window.Polymer || {};
-      window.Polymer.dom = 'shadow';
-      */
-    </script>
-    <link rel="import" href="dragula-element-demo.html">
-  </head>
-  <body>
-    <dragula-element-demo></dragula-element-demo>
-  </body>
+<head>
+  <title>dragula-element demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../paper-styles/demo-pages.html">
+  <style>
+    a {
+      display: block;
+      margin-bottom: 10px;
+    }
+    li {
+      list-style: none;
+    }
+  </style>
+</head>
+<body unresolved>
+
+  <div class="horizontal-section-container">
+    <div>
+      <h3>dragula-element demo</h3>
+      <ul class="horizontal-section">
+        <li><a href="basic.html" target="_blank">Basic usage</a></li>
+        <li><a href="nested.html" target="_blank">Nested elements with handles</a></li>
+        <li><a href="nested-groups.html" target="_blank">Nested elements with exchange between groups</a></li>
+      </ul>
+    </div>
+  </div>
+
+</body>
 </html>

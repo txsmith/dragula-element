@@ -1,0 +1,55 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-material/paper-material.html">
+<link rel="import" href="../dragula-element.html">
+<link rel="import" href="../dragula-styles.html">
+<link rel="import" href="my-group.html">
+
+<dom-module id="nested-group-demo">
+  <template>
+    <style include="dragula-styles">
+      paper-material {
+        margin: 1em;
+      }
+    </style>
+
+    <dragula-element handle-class="handle">
+      <paper-material elevation="1">
+        <my-group drake="{{identity}}"></my-group>
+      </paper-material>
+
+      <paper-material elevation="1">
+        <my-group drake="[[identity]]"></my-group>
+      </paper-material>
+
+      <paper-material elevation="1">
+        <my-group drake="[[identity]]"></my-group>
+      </paper-material>
+    </dragula-element>
+    
+  </template>
+  <script>
+    Polymer({
+      is: 'nested-group-demo',
+
+      properties: {
+        identity: Object
+      },
+
+      listeners: {
+        'dragula-drag': 'handleEvent',
+        'dragula-dragend': 'handleEvent',
+        'dragula-drop': 'handleEvent',
+        'dragula-cancel': 'handleEvent',
+        'dragula-remove': 'handleEvent',
+        'dragula-shadow': 'handleEvent',
+        'dragula-over': 'handleEvent',
+        'dragula-out': 'handleEvent',
+        'dragula-cloned': 'handleEvent'
+      },
+      handleEvent: function (event) {
+        // console.log(event.type, event.detail);
+      }
+
+    });
+  </script>
+</dom-module>

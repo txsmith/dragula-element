@@ -1,0 +1,49 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../dragula-element.html">
+<link rel="import" href="../dragula-styles.html">
+
+<dom-module id="my-group">
+  <template>
+    <style include="dragula-styles">
+      :host {
+        display: block;
+        padding: 1em;
+        background: white;
+      }
+
+      .item {
+        background: white;
+        border: solid 1px black;
+        margin: 0.5em;
+        padding: 0.5em;
+        box-sizing: border-box;
+      }
+
+      .handle, .item {
+        cursor: grabbing;
+        cursor: -moz-grabbing;
+        cursor: -webkit-grabbing;
+      }
+    </style>
+    
+    <div class="handle">Drag me here!</div>
+    <dragula-element drake="{{drake}}">
+      <div class="item">Hello</div>
+      <div class="item">Draggable</div>
+      <div class="item">World</div>
+    </dragula-element>
+    
+  </template>
+  <script>
+    Polymer({
+      is: 'my-group',
+
+      properties: {
+        drake: { 
+          type: Object,
+          notify: true
+        }
+      }
+    });
+  </script>
+</dom-module>
