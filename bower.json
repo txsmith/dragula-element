@@ -1,0 +1,17 @@
+{
+  "name": "dragula-element",
+  "version": "0.1.0",
+  "homepage": "https://github.com/txsmith/dragula-element",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "dragula.js": "txsmith/dragula#fix-shadow-dom-dist"
+  }
+}
