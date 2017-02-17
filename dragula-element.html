@@ -148,14 +148,15 @@ not described or documented here.
       },
       
       /**
+       * If left undefined, the mirror will be placed in the enclosing element's
+       * shadow root to aid styling. If there is no shadow root, `document.body`
+       * will be used.
+       * 
        * @attribute mirrorContainer
        * @type Object
-       * @default `document.body`
+       * @default parent shadow root or `document.body`
        */
-      mirrorContainer: {
-        type: Object,
-        value: document.body
-      },
+      mirrorContainer: Object,
 
       /**
        * @attribute ignoreInputTextSelection
@@ -173,7 +174,7 @@ not described or documented here.
       if (!this.drake || !this.drake.containers) {
         var mirrorContainer;
         if (this.getRootNode() === document) {
-          mirrorContainer = this.mirrorContainer;
+          mirrorContainer = document.body;
         } else {
            mirrorContainer = this.getRootNode().getElementById('mirrorContainer');
         }
@@ -219,7 +220,7 @@ not described or documented here.
           direction: this.direction,
           revertOnSpill: this.revertOnSpill,
           removeOnSpill: this.removeOnSpill,
-          mirrorContainer: mirrorContainer, 
+          mirrorContainer: this.mirrorContainer || mirrorContainer,
         });
 
         ['cancel', 'cloned', 'drag', 
