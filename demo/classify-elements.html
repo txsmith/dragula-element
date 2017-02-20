@@ -1,0 +1,100 @@
+<!--
+@license
+Copyright (c) 2017 Thomas Smith. All rights reserved.
+This code may only be used under the BSD style license found in LICENSE.txt
+-->
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-button/paper-button.html">
+<link rel="import" href="../dragula-element.html">
+<link rel="import" href="../dragula-styles.html">
+<link rel="import" href="classify-group.html">
+
+<dom-module id="classify-elements">
+  <template>
+    <style include="dragula-styles">
+      paper-material {
+        margin: 1em;
+      }
+      .groups {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      classify-group {
+        margin: 1em;
+      }
+      .groups classify-group {
+        width: 200px;
+        height: 200px;
+      }
+      .unclassified {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    </style>
+
+    <header>
+      <paper-button raised on-tap="_addGroup">Add</paper-button>
+    </header>
+    <dragula-element class="groups" handle-class="handle" direction="horizontal">
+      <template is="dom-repeat" items="[[groups]]">
+        <classify-group items="[[item]]" drake="{{drake}}"></classify-group>
+      </template>
+    </dragula-element>  
+
+    <classify-group 
+      class="unclassified" 
+      no-handle 
+      drake="{{drake}}"
+      items="[[unclassified_items]]"
+      ></classify-group>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'classify-elements',
+
+      properties: {
+        drake: Object,
+        groups: {
+          type: Array,
+          value : [[], []]
+        },
+        unclassified_items: {
+          type: Array,
+          value: [
+            'Simon',
+            'Garfunkel',
+            'Red Hot Chili Peppers',
+            'Iron Maiden',
+            'Led Zeppelin',
+            'Lady Gagga',
+            'Guus Meeuwis',
+            'DjPj'
+          ]
+        }
+      },
+
+      // listeners: {
+      //   'dragula-drag': 'logEvent',
+      //   'dragula-dragend': 'logEvent',
+      //   'dragula-drop': 'logEvent',
+      //   'dragula-cancel': 'logEvent',
+      //   'dragula-remove': 'logEvent',
+      //   'dragula-shadow': 'logEvent',
+      //   'dragula-over': 'logEvent',
+      //   'dragula-out': 'logEvent',
+      //   'dragula-cloned': 'logEvent'
+      // },
+
+      // logEvent: function (event) {
+      //   console.log(event.type, event.detail);
+      // },
+
+      _addGroup: function() {
+        this.groups.push([]);
+      }
+
+    });
+  </script>
+</dom-module>

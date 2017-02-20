@@ -1,0 +1,69 @@
+<!--
+@license
+Copyright (c) 2017 Thomas Smith. All rights reserved.
+This code may only be used under the BSD style license found in LICENSE.txt
+-->
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-material/paper-material.html">
+<link rel="import" href="../dragula-element.html">
+<link rel="import" href="../dragula-styles.html">
+<link rel="import" href="classify-item.html">
+<dom-module id="classify-group">
+  <template>
+    <style include="dragula-styles">
+      :host {
+        display: block;
+      }
+      paper-material {
+        height: 100%;
+        background: white;
+        display: flex;
+        flex-direction: column;
+      }
+      dragula-element {
+        flex: 1;
+      }
+      :host([no-handle]) .handle {
+        display: none;
+      }
+      .handle {
+        text-align: center;
+        cursor: -webkit-grabbing;
+        cursor: -moz-grabbing;
+        cursor: grabbing;
+      }
+    </style>
+
+    <paper-material elevation="1">
+      <div class="handle">Drag me here!</div>
+      <dragula-element drake="{{drake}}">
+        <template is="dom-repeat" items="[[items]]">
+          <classify-item name="[[item]]"></classify-item>
+        </template>
+      </dragula-element>
+    </paper-material>
+    
+  </template>
+  <script>
+    Polymer({
+      is: 'classify-group',
+
+      properties: {
+        drake: { 
+          type: Object,
+          notify: true
+        },
+
+        noHandle: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+
+        items: Array
+      },
+
+
+    });
+  </script>
+</dom-module>

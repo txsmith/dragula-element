@@ -197,6 +197,7 @@ not described or documented here.
           revertOnSpill: this.revertOnSpill,
           removeOnSpill: this.removeOnSpill,
           mirrorContainer: this.mirrorContainer || mirrorContainer,
+          createMirror: this.createMirror
         });
 
         ['cancel', 'cloned', 'drag', 
@@ -223,6 +224,15 @@ not described or documented here.
         this.drake.destroy();
         this.drake = undefined;
       }
+    },
+
+    createMirror: function(item) {
+      var mirror = document.createElement('div');
+      mirror.style.background = 'red';
+      var rect = item.getBoundingClientRect();
+      mirror.style.width = rect.width + 'px';
+      mirror.style.height = rect.height + 'px';
+      return mirror;
     },
 
     /**

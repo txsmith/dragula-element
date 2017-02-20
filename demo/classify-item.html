@@ -1,0 +1,36 @@
+<!--
+@license
+Copyright (c) 2017 Thomas Smith. All rights reserved.
+This code may only be used under the BSD style license found in LICENSE.txt
+-->`
+<link rel="import" href="../../polymer/polymer.html">
+<dom-module id="classify-item">
+  <template>
+    <style>
+      :host {
+        display: block;
+        background: white;
+        padding: 8px;
+        border-bottom: solid 1px #ddd;
+      }
+
+    </style>
+    
+    <div>
+      [[name]]
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'classify-item',
+
+      properties: {
+        name: {
+          type: String,
+          reflectToAttribute: true
+        }
+      }
+    });
+  </script>
+</dom-module>
