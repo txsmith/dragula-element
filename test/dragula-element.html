@@ -1,0 +1,234 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2017 Thomas Smith. All rights reserved.
+This code may only be used under the BSD style license found in LICENSE.txt
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>paper-button basic tests</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../iron-test-helpers/mock-interactions.js"></script>
+
+  <link rel="import" href="../dragula-element.html">
+</head>
+<body>
+
+  <test-fixture id="TrivialDragging">
+    <template>
+      <style include="dragula-styles">
+        .draggable {
+          width: 200px;
+          height: 100px;
+          background: mediumpurple;
+        }
+        dragula-element {
+          display: block;
+          height: 200px;
+          width: 200px
+        }
+      </style>
+
+      <dragula-element>
+        <div id="dragMe" class="draggable">Hello</div>
+        <div class="draggable">Bye</div>
+      </dragula-element>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="MultiDragging">
+    <template>
+      <style include="dragula-styles">
+        .draggable {
+          width: 200px;
+          height: 100px;
+          background: mediumpurple;
+        }
+        dragula-element {
+          display: block;
+          height: 200px;
+          width: 200px;
+          margin: 50px;
+        }
+      </style>
+
+      <div id="container"></div>
+    </template>
+  </test-fixture>
+  <script>
+
+    describe("<dragula-element>", function() {
+
+      var fixtureElem;
+      var dragulaElem;
+      var drag;
+      
+      beforeEach(function() {
+        fixtureElem = fixture('TrivialDragging');
+        dragulaElem = Polymer.dom(fixtureElem.root).querySelector('dragula-element');
+        drag = Polymer.dom(fixtureElem.root).querySelector('#dragMe');
+        this.timeout(1000);
+      });
+
+      it('should fire dragula-drag event on drag', function(done) {
+        dragulaElem.addEventListener('dragula-drag', function(e) {
+          expect(e.detail.el).to.equal(drag);
+          expect(e.detail.source).to.equal(dragulaElem);
+          done();
+        });
+
+        flush(function() { MockInteractions.track(drag, 10, 10); });
+      });
+
+      it('should fire dragula-cloned event on drag', function(done) {
+        dragulaElem.addEventListener('dragula-cloned', function(e) {
+          expect(e.detail.source).to.equal(drag);
+          done();
+        });
+
+        flush(function() { MockInteractions.track(drag, 10, 10); });
+      });
+
+      it('should append the mirror to the configured container', function(done) {
+        var div = document.createElement('div');
+        dragulaElem.mirrorContainer = div
+        dragulaElem.detached();
+        dragulaElem.attached();
+
+        dragulaElem.addEventListener('dragula-cloned', function(e) {
+          expect(e.detail.el.parentElement).to.equal(div);
+          done();
+        });
+
+        flush(function() { MockInteractions.track(drag, 10, 10); });
+      });
+        
+    });
+
+    describe("multiple shared <dragula-element>s", function() {
+
+      var fixtureElem;
+      var container, dragulaElem1, dragulaElem2;
+      
+      beforeEach(function() {
+        fixtureElem = fixture('MultiDragging');
+        container = Polymer.dom(fixtureElem.root).querySelector("#container");
+        dragulaElem1 = document.createElement('dragula-element');
+        
+        container.appendChild(dragulaElem1);
+
+        dragulaElem2 = document.createElement('dragula-element');
+        dragulaElem2.drake = dragulaElem1.drake;
+        container.appendChild(dragulaElem2);
+
+        for (var i = 0; i < 2; i++) {
+          dragulaElem1.appendChild(createDraggableDiv());
+          dragulaElem2.appendChild(createDraggableDiv());
+        }
+      });
+
+      it('should increase referenceCount if they share their drake object', function() {
+        this.timeout(1000);
+        debugger;
+        expect(dragulaElem1.drake).to.equal(dragulaElem2.drake);
+        expect(dragulaElem1.drake.referenceCount).to.equal(dragulaElem2.drake.referenceCount);
+        expect(dragulaElem1.drake.referenceCount).to.equal(2);
+      });
+
+      it('should decrease referenceCount if one element is detached', function() {
+        this.timeout(1000);
+        container.removeChild(dragulaElem2);
+        expect(dragulaElem1.drake.referenceCount).to.equal(1);
+      });
+
+      it('should destroy the drake object if all elements are detached', function(done) {
+        this.timeout(1000);
+        dragulaElem1.drake.destroy = function() {
+          done();
+        }
+        container.removeChild(dragulaElem1);
+        container.removeChild(dragulaElem2);
+        expect(dragulaElem1.drake).to.equal(undefined);
+      });
+
+      it('should be able to drag elements to other dragula-elements', function(done) {
+        this.timeout(1000);
+        var drag = dragulaElem1.firstElementChild;
+        dragulaElem1.addEventListener('dragula-dragend', function(e) {
+          expect(dragulaElem2.firstElementChild).to.equal(drag);
+          done();
+        });
+
+        flush(function() { MockInteractions.track(drag, 0, 350); });
+      });
+
+    });
+
+    describe("multiple <dragula-element>s", function() {
+
+      var fixtureElem;
+      var container, dragulaElem1, dragulaElem2;
+      
+      beforeEach(function() {
+        fixtureElem = fixture('MultiDragging');
+        container = Polymer.dom(fixtureElem.root).querySelector("#container");
+        dragulaElem1 = document.createElement('dragula-element');
+        
+        container.appendChild(dragulaElem1);
+
+        dragulaElem2 = document.createElement('dragula-element');
+        container.appendChild(dragulaElem2);
+
+        for (var i = 0; i < 2; i++) {
+          dragulaElem1.appendChild(createDraggableDiv());
+          dragulaElem2.appendChild(createDraggableDiv());
+        }
+      });
+
+      it('should not share their drake object by default', function() {
+        this.timeout(1000);
+        expect(dragulaElem1.drake).to.not.equal(dragulaElem2.drake);
+      });
+
+      it('should not increase referenceCount by default', function() {
+        this.timeout(1000);
+        expect(dragulaElem1.drake.referenceCount).to.equal(1);
+        expect(dragulaElem2.drake.referenceCount).to.equal(1);
+      });
+
+      it('should be able to re-order elements', function(done) {
+        this.timeout(1000);
+        var drag = dragulaElem1.firstElementChild;
+        dragulaElem1.addEventListener('dragula-dragend', function(e) {
+          expect(dragulaElem1.lastElementChild).to.equal(drag);
+          done();
+        });
+
+        flush(function() { MockInteractions.track(drag, 0, 150); });
+      });
+
+      it('should not be able to drag elements to other dragula-elements', function(done) {
+        this.timeout(1000);
+        var drag = dragulaElem1.firstElementChild;
+        dragulaElem1.addEventListener('dragula-dragend', function(e) {
+          expect(dragulaElem2.firstElementChild).to.not.equal(drag);
+          done();
+        });
+
+        flush(function() { MockInteractions.track(drag, 0, 350); });
+      });
+    });
+
+    function createDraggableDiv() {
+      var d = document.createElement('div');
+      d.setAttribute('class', 'draggable');
+      return d;
+    }
+
+  </script>
+</body>
+</html>

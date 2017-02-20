@@ -1,0 +1,99 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2017 Thomas Smith. All rights reserved.
+This code may only be used under the BSD style license found in LICENSE.txt
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>paper-button basic tests</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../iron-test-helpers/mock-interactions.js"></script>
+
+  <link rel="import" href="../dragula-element.html">
+  <link rel="import" href="../demo/my-group.html">
+</head>
+<body>
+
+  <test-fixture id="RegularFixure">
+    <template>
+      <style include="dragula-styles">
+        .draggable {
+          width: 200px;
+          height: 100px;
+          background: mediumpurple;
+        }
+        dragula-element {
+          display: block;
+          height: 200px;
+          width: 200px
+        }
+      </style>
+
+      <dragula-element>
+        <div id="dragMe" class="draggable">Hello</div>
+        <div class="draggable">Bye</div>
+      </dragula-element>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="MultiFixure">
+    <template>
+      <style include="dragula-styles">
+        .draggable {
+          width: 200px;
+          height: 100px;
+          background: mediumpurple;
+        }
+        dragula-element {
+          display: block;
+          height: 200px;
+          width: 200px
+        }
+      </style>
+
+      <dragula-element>
+        <div id="dragMe" class="draggable">Hello</div>
+        <div class="draggable">Bye</div>
+      </dragula-element>
+      
+    </template>
+  </test-fixture>
+
+  <script>
+
+    describe("<dragula-element>", function() {
+
+      describe("inside a regular DOM node", function() {
+        var fixtureElem;
+        var dragulaElem;
+        var drag;
+        
+        beforeEach(function() {
+          fixtureElem = fixture('RegularFixure');
+          dragulaElem = Polymer.dom(fixtureElem.root).querySelector('dragula-element');
+          drag = Polymer.dom(fixtureElem.root).querySelector('#dragMe');
+          this.timeout(1000);
+        });
+        
+        it('should append a mirror as sibling of document.body', function(done) {
+
+          dragulaElem.addEventListener('dragula-cloned', function(e) {
+            expect(e.detail.el.parentElement).to.equal(document.body);
+            expect(e.detail.source).to.equal(drag);
+            done();
+          });
+
+          flush(function() { MockInteractions.track(drag, 10, 10); });
+        });
+      });
+
+    });
+
+  </script>
+</body>
+</html>

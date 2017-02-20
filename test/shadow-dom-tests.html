@@ -1,0 +1,67 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2017 Thomas Smith. All rights reserved.
+This code may only be used under the BSD style license found in LICENSE.txt
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>paper-button basic tests</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../iron-test-helpers/mock-interactions.js"></script>
+
+  <link rel="import" href="../dragula-element.html">
+  <link rel="import" href="../demo/my-group.html">
+</head>
+<body>
+
+  <test-fixture id="ShadowFixure">
+    <template>
+      <style include="dragula-styles">
+        my-group {
+          display: block;
+        }
+      </style>
+
+      <my-group></my-group>
+    </template>
+  </test-fixture>
+
+  <script>
+
+    describe("<dragula-element>", function() {
+
+      describe("inside a regular DOM node", function() {
+        var fixtureElem;
+        var dragulaElem;
+        var drag;
+        
+        beforeEach(function() {
+          fixtureElem = fixture('ShadowFixure');
+          var group = Polymer.dom(fixtureElem.root).querySelector('my-group');
+          dragulaElem = group.shadowRoot.querySelector('dragula-element');
+          drag = group.shadowRoot.querySelector(".item");
+        });
+        
+        it('should append a mirror as sibling of dragula-element', function(done) {
+          this.timeout(1000);
+          
+          dragulaElem.addEventListener('dragula-cloned', function(e) {
+            expect(e.detail.el.parentElement.previousElementSibling).to.equal(dragulaElem);
+            expect(e.detail.source).to.equal(drag);
+            done();
+          });
+
+          flush(function() { MockInteractions.track(drag, 10, 10); });
+        });
+      });
+
+    });
+
+  </script>
+</body>
+</html>

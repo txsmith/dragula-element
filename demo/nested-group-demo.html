@@ -17,6 +17,7 @@ This code may only be used under the BSD style license found in LICENSE.txt
       }
     </style>
 
+    <span>Open the console to watch events.</span>
     <dragula-element handle-class="handle">
       <paper-material elevation="1">
         <my-group drake="{{identity}}"></my-group>
@@ -41,18 +42,18 @@ This code may only be used under the BSD style license found in LICENSE.txt
       },
 
       listeners: {
-        'dragula-drag': 'handleEvent',
-        'dragula-dragend': 'handleEvent',
-        'dragula-drop': 'handleEvent',
-        'dragula-cancel': 'handleEvent',
-        'dragula-remove': 'handleEvent',
-        'dragula-shadow': 'handleEvent',
-        'dragula-over': 'handleEvent',
-        'dragula-out': 'handleEvent',
-        'dragula-cloned': 'handleEvent'
+        'dragula-drag': 'logEvent',
+        'dragula-dragend': 'logEvent',
+        'dragula-drop': 'logEvent',
+        'dragula-cancel': 'logEvent',
+        'dragula-remove': 'logEvent',
+        'dragula-shadow': 'logEvent',
+        'dragula-over': 'logEvent',
+        'dragula-out': 'logEvent',
+        'dragula-cloned': 'logEvent'
       },
-      handleEvent: function (event) {
-        // console.log(event.type, event.detail);
+      logEvent: function (event) {
+        console.log(event.type, event.detail);
       }
 
     });

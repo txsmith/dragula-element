@@ -148,15 +148,17 @@ not described or documented here.
       
       if (!this.drake || !this.drake.containers) {
         var mirrorContainer;
-        if (this.getRootNode() === document) {
+        debugger;
+        var root = this.getRootNode();
+        if (root === document) {
           mirrorContainer = document.body;
         } else {
-           mirrorContainer = this.getRootNode().getElementById('mirrorContainer');
+          mirrorContainer = root.getElementById('mirrorContainer');
         }
         if (!mirrorContainer) {
           mirrorContainer = document.createElement('div');
           mirrorContainer.setAttribute('id', 'mirrorContainer');
-          this.getRootNode().appendChild(mirrorContainer);
+          root.appendChild(mirrorContainer);
         }
 
         this.drake = dragula(this.containers, {
