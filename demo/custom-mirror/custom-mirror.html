@@ -1,0 +1,62 @@
+<!--
+@license
+Copyright (c) 2017 Thomas Smith. All rights reserved.
+This code may only be used under the BSD style license found in LICENSE.txt
+-->
+<link rel="import" href="../../../polymer/polymer.html">
+<link rel="import" href="../../../paper-material/paper-material.html">
+<link rel="import" href="../../dragula-element.html">
+<link rel="import" href="../../dragula-styles.html">
+<link rel="import" href="../my-group.html">
+<link rel="import" href="mirror-elem.html">
+
+<dom-module id="custom-mirror">
+  <template>
+    <style include="dragula-styles">
+      .item {
+        background: white;
+        border: solid 1px black;
+        margin: 1em;
+        padding: 0.5em;
+        box-sizing: border-box;
+      }
+      paper-material {
+        background-color: white;
+        padding: 1em;
+      }
+    </style>
+
+    <span>Mirrors can be dynamically generated</span>
+    
+    <paper-material elevation="1">
+      <dragula-element id="dragula">
+        <div class="item">Hello</div>
+        <div class="item">Draggable</div>
+        <div class="item">World</div>
+        <div class="item">Demo</div>
+      </dragula-element>
+    </paper-material>
+    
+    
+    
+  </template>
+  <script>
+    Polymer({
+      is: 'custom-mirror',
+
+      properties: { },
+
+      attached: function() {
+        this.$.dragula.createMirror = this.createMirror;
+      },
+
+      createMirror: function(originalElement) {
+        var m = document.createElement('mirror-elem');
+        var originalRect = originalElement.getBoundingClientRect();
+        m.style.width = originalRect.width / 2 + 'px';
+        m.style.height = originalRect.height * 2 + 'px';
+        return m;
+      }
+    });
+  </script>
+</dom-module>

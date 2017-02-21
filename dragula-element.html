@@ -132,6 +132,7 @@ not described or documented here.
        * @default parent shadow root or `document.body`
        */
       mirrorContainer: Object,
+      
 
       /**
        * @attribute ignoreInputTextSelection
@@ -182,21 +183,24 @@ not described or documented here.
           }.bind(this),
 
           copy: function() {
-            return this.copy
+            return this.copy;
           }.bind(this),
           
           copySortSource: function() {
-            return this.copySortSource
+            return this.copySortSource;
           }.bind(this),
 
           ignoreInputTextSelection: function() {
-            return this.ignoreInputTextSelection
+            return this.ignoreInputTextSelection;
           }.bind(this),
 
           direction: this.direction,
           revertOnSpill: this.revertOnSpill,
           removeOnSpill: this.removeOnSpill,
           mirrorContainer: this.mirrorContainer || mirrorContainer,
+          createMirror: function(el) {
+            return this.createMirror(el);
+          }.bind(this)
         });
 
         ['cancel', 'cloned', 'drag', 
@@ -223,6 +227,14 @@ not described or documented here.
         this.drake.destroy();
         this.drake = undefined;
       }
+    },
+
+    /**
+     * Function that returns a custom mirror element.
+     * Override to provide your own custom mirror.
+     */
+    createMirror: function(originalElement) {
+      return undefined;
     },
 
     /**
