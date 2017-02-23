@@ -13,15 +13,15 @@ This code may only be used under the BSD style license found in LICENSE.txt
 
   <title>dragula-element demo</title>
 
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
   <script>
     window.Polymer = window.Polymer || {};
     window.Polymer.dom = 'shadow';
   </script>
 
-  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-  <link rel="import" href="nested-group-demo.html">
+  <link rel="import" href="../../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="custom-mirror.html">
 
   <style is="custom-style" include="demo-pages-shared-styles">
   </style>
@@ -29,8 +29,8 @@ This code may only be used under the BSD style license found in LICENSE.txt
 <body>
   <div class="vertical-section-container centered">
 
-    <h3>Nested elements, with dragging between groups</h3>
-    <nested-group-demo></nested-group-demo>
+    <h3>Mirrors can be custom made!</h3>
+    <custom-mirror></custom-mirror>
   </div>
 </body>
 </html>

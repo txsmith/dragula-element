@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "polymer": "^1.8.0",
-    "dragula.js": "txsmith/dragula#fix-shadow-dom-dist"
+    "dragula.js": "txsmith/dragula#master"
   },
   "devDependencies": {
     "iron-component-page": "^1.1.8",

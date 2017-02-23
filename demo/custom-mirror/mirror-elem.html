@@ -1,0 +1,44 @@
+
+<dom-module id="mirror-elem">
+  <template>
+    <style>
+      :host {
+        display: block;
+        border-radius: 8px;
+        background-color: red;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      div {
+        text-align: center;
+        font-size: 24px;
+      }
+    </style>
+
+    <div>[[text]]</div>
+    
+  </template>
+  <script>
+    Polymer({
+      is: 'mirror-elem',
+
+      properties: {
+        text: String,
+
+        possibleTexts: {
+          type: Array,
+          value: [
+            'Mirror',
+            'With dynamic content',
+            'Hello!'
+          ]
+        }
+      },
+
+      attached: function() {
+        this.text = this.possibleTexts[Math.floor(Math.random() * this.possibleTexts.length)];
+      }
+    });
+  </script>
+</dom-module>
