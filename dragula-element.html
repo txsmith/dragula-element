@@ -51,6 +51,17 @@ not described or documented here.
       },
 
       /**
+       * The class for an element that serves as custom container.
+       * If left undefined, `<dragula-element>` will use itself as container.
+       *
+       * @attribute containerClass
+       * @type String
+       */
+      containerClass: {
+        type: String
+      },
+
+      /**
        * Return the drake object of the current group.
        * To make elements draggable between different `dragula-element`s,
        * you should data-bind this object to the other `dragula-element`s.
@@ -216,7 +227,7 @@ not described or documented here.
       }
 
       if (!this.containers) {
-        this.drake.containers.push(this); 
+        this.drake.containers.push(Polymer.dom(this).querySelector('.'+this.containerClass) || this);
       }
       this.drake.referenceCount++;
     },

@@ -31,7 +31,9 @@
     "webcomponentsjs": "^0.7.24",
     "paper-material": "^1.0.6",
     "test-fixture": "^1.0.0",
-    "iron-test-helpers": "txsmith/iron-test-helpers#fix-mockinteractions-track"
+    "iron-test-helpers": "txsmith/iron-test-helpers#master",
+    "iron-icon": "^1.0.12",
+    "iron-icons": "^1.2.0"
   },
   "keywords": [
     "web-components",
