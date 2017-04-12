@@ -160,7 +160,7 @@ not described or documented here.
       
       if (!this.drake || !this.drake.containers) {
         var mirrorContainer;
-        var root = this.getRootNode();
+        var root = this.getRootNode?this.getRootNode():document;
         if (root === document) {
           mirrorContainer = document.body;
         } else {
